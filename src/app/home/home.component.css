@@ -1,0 +1,33 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #e0e0e0;
+  }
+  .header-text a {
+    color: #000;
+  }
+
+  .head-sign-in-div {
+    position: relative;
+    }
+  .head-sign-in-div a {
+    color: #000;
+    float: right;
+    margin-top: 60px;
+    padding: 10px;
+  }
+
+  .center-vertically h1 {
+      margin: 20px 0px 20px 0px;
+    padding: 10px 0;
+  }
+
+  .home-user-img-box{
+    min-height: 220px;
+    min-width: 220px;
+    max-height: 220px;
+    max-width: 220px;  
+  }

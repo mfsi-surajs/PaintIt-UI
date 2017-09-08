@@ -1,0 +1,134 @@
+<div [hidden]="loginDialog">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Login</h4>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+        <div class="modal-body">
+
+            <div [hidden]='!loginFailed' class="alert alert-danger small-alert">
+                    {{loginData.message}}
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Username</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                    <div *ngIf="loginForm.controls['name'].hasError('required') && (loginForm.controls['name'].dirty || loginForm.controls['name'].touched)" class="alert alert-danger small-alert">
+                        Please enter a username.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                    <div *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="alert alert-danger small-alert">
+                        Please enter Password.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default sign-up-btn" (click)="onClickSignUp()">Sign up</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" [disabled]="!loginForm.valid" class="btn btn-default">Login</button>
+        </div>
+    </form>
+
+
+</div>
+
+<div [hidden]="!loginDialog">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign Up</h4>
+    </div>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
+        <div class="modal-body">
+
+            <div [hidden]="!signUpError" class="alert alert-danger small-alert">
+                {{signUpErrorText}}
+            </div>
+
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                    <div *ngIf="signUpForm.controls['name'].hasError('required') && (signUpForm.controls['name'].dirty || signUpForm.controls['name'].touched)" class="alert alert-danger small-alert">
+                        Please enter a name.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Email</label>
+                    <input type="text" class="form-control" id="name" formControlName="email">
+                    <div *ngIf="signUpForm.controls['email'].hasError('required') && (signUpForm.controls['email'].dirty || signUpForm.controls['email'].touched)" class="alert alert-danger small-alert">
+                        Please enter a email.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Phone</label>
+                    <input type="text" class="form-control" id="name" formControlName="phone">
+                    <div *ngIf="signUpForm.controls['phone'].hasError('required') && (signUpForm.controls['phone'].dirty || signUpForm.controls['phone'].touched)" class="alert alert-danger small-alert">
+                        Please enter a Phone number.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">City</label>
+                    <input type="text" class="form-control" id="city" formControlName="city">
+                    <div *ngIf="signUpForm.controls['city'].hasError('required') && (signUpForm.controls['city'].dirty || signUpForm.controls['city'].touched)" class="alert alert-danger small-alert">
+                        Please enter a city.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Country</label>
+                    <select class="form-control" id="country" formControlName="country" required>
+                        <option value="">Please select</option>
+                        <option *ngFor="let country of countries">{{country.country}}</option>
+                    </select>
+                    <div *ngIf="signUpForm.controls['country'].hasError('required') && (signUpForm.controls['country'].dirty || signUpForm.controls['country'].touched)" class="alert alert-danger small-alert">
+                        Please enter a country.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Username</label>
+                    <input type="text" class="form-control" id="username" formControlName="username">
+                    <div *ngIf="signUpForm.controls['username'].hasError('required') && (signUpForm.controls['username'].dirty || signUpForm.controls['username'].touched)" class="alert alert-danger small-alert">
+                        Please enter a username.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-sm row">
+                <div class="col-xs-12">
+                    <label for="name">Password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                    <div *ngIf="signUpForm.controls['password'].hasError('required') && (signUpForm.controls['password'].dirty || signUpForm.controls['password'].touched)" class="alert alert-danger small-alert">
+                        Please enter Password.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default sign-up-btn" (click)="onClickLogIn()">Login</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-default">Sign up</button>
+        </div>
+    </form>
+
+
+</div>

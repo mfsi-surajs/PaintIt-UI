@@ -1,0 +1,112 @@
+<div [hidden]="!editProfDialog">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Profile</h4>
+    </div>
+
+    <form [formGroup]="editProfForm" (ngSubmit)="onSubmitEdit()">
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                    <div [hidden]="!editError" class="alert alert-danger small-alert">
+                        {{editErrorText}}
+                    </div>
+
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">Name*</label>
+                            <input type="text" class="form-control" id="name" formControlName="name" [(ngModel)]="userData.name">
+                            <div *ngIf="editProfForm.controls['name'].hasError('required') && (editProfForm.controls['name'].dirty || editProfForm.controls['name'].touched)"
+                                class="alert alert-danger small-alert">
+                                Please enter a name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">Email*</label>
+                            <input type="text" class="form-control" id="name" formControlName="email" [(ngModel)]="userData.email">
+                            <div *ngIf="editProfForm.controls['email'].hasError('required') && (editProfForm.controls['email'].dirty || editProfForm.controls['email'].touched)"
+                                class="alert alert-danger small-alert">
+                                Please enter a email.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">Phone*</label>
+                            <input type="text" class="form-control" id="name" formControlName="phone" [(ngModel)]="userData.phone">
+                            <div *ngIf="editProfForm.controls['phone'].hasError('required') && (editProfForm.controls['phone'].dirty || editProfForm.controls['phone'].touched)"
+                                class="alert alert-danger small-alert">
+                                Please enter a Phone number.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">City*</label>
+                            <input type="text" class="form-control" id="city" formControlName="city" [(ngModel)]="userData.city">
+                            <div *ngIf="editProfForm.controls['city'].hasError('required') && (editProfForm.controls['city'].dirty || editProfForm.controls['city'].touched)"
+                                class="alert alert-danger small-alert">
+                                Please enter a city.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">Country</label>
+                            <select class="form-control" id="country" formControlName="country" >
+                                <option value="">Please select</option>
+                                <option *ngFor="let country of countries" [selected]="userData.country == country">{{country.country}}</option>
+                            </select>
+                            <div *ngIf="editProfForm.controls['country'].hasError('required') && (editProfForm.controls['country'].dirty || editProfForm.controls['country'].touched)"
+                                class="alert alert-danger small-alert">
+                                Please enter a country.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">Username*</label>
+                            <input type="text" class="form-control" id="username" formControlName="username" [(ngModel)]="userData.username">
+                            <div *ngIf="editProfForm.controls['username'].hasError('required') && (editProfForm.controls['username'].dirty || editProfForm.controls['username'].touched)"
+                                class="alert alert-danger small-alert">
+                                Please enter a username.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-sm row">
+                        <div class="col-xs-12">
+                            <label for="name">Password</label>
+                            <input type="password" class="form-control" id="password" formControlName="password">
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group row">
+                        <label for="userDetails">About*</label>
+                        <textarea class="form-control" rows="15" id="userDetails" formControlName="userDetails" [(ngModel)]="userData.userDetails"></textarea>
+                        <div *ngIf="editProfForm.controls['userDetails'].hasError('required') && (editProfForm.controls['userDetails'].dirty || editProfForm.controls['userDetails'].touched)"
+                        class="alert alert-danger small-alert">
+                        Please enter a username.
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" [disabled]="!editProfForm.valid" class="btn btn-default">Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+
+
+
+
+</div>
