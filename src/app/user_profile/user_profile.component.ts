@@ -14,6 +14,10 @@ import { LoginService } from '../home/home.service';
 
 export class UserProfileComponent implements OnInit {
 
+    profileImageUrl = "getProfileImage?path=";
+    
+    paintingImageUrl = "getPaintings?path=";
+
     /* @userId
     *  Holds user id of selected user.
     */

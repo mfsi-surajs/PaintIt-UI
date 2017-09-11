@@ -14,6 +14,7 @@ import 'rxjs/add/observable/of';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { LoginService } from './home.service';
+import { environment } from '../../environments/environment';
 
 // Using similarity from AsyncPipe to avoid having to pipe |secure|async in HTML.
 @Pipe({
@@ -44,6 +45,7 @@ export class SecurePipe implements PipeTransform, OnDestroy {
     }
 
     transform(url: string): any {
+        url = environment.apiEndpoint+url;
         let obj = this.internalTransform(url);
         return this.asyncTrasnform(obj);
     }

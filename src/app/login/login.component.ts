@@ -17,11 +17,13 @@ export class LoginFormComponent implements OnInit {
 
     loginFailed = false;
 
+    /* Login form Model. */
     loginForm = new FormGroup({
         name: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required)
     });
 
+    /* New user Sign Up form Model. */
     signUpForm = new FormGroup({
         name: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, this.validateEmail]),
@@ -32,35 +34,46 @@ export class LoginFormComponent implements OnInit {
         password: new FormControl('', Validators.required)
     });
 
+    /* 
+    * @param loginDialog sets visibility of login/sign up forms.
+    * "true" -> login form hidden / sign up form visible.
+    * "false" -> login form visible / sign up form hidden.
+    */
     loginDialog = false;
 
+    /* Function called on click of Sign Up button. */
     onClickSignUp() {
         this.loginDialog = true;
     }
 
+    /*  Function called on click of Login button. */
     onClickLogIn() {
         this.loginDialog = false;
     }
 
+    /* @param countries Holds list all countries requested from database. */
     countries;
 
     ngOnInit() {
+        /* Http Request for all the countries. */
         this._loginService.getCountries()
             .subscribe(loginResponse => {
                 this.countries = loginResponse;
-                console.log("Countries: " + JSON.stringify(this.countries));
+                //console.log("Countries: " + JSON.stringify(this.countries));
             });
     }
 
     loginData: any = { message: "" };
 
     constructor(private _loginService: LoginService, private _cookieService: CookieService) { }
+    
+    /* Function called on submmit of login form. */
     onSubmitLogin() {
         console.log(this.loginForm.value);
         this._loginService.userLogin(this.loginForm.value.name, this.loginForm.value.password)
             .subscribe(loginResponse => {
                 this.loginData = loginResponse;
-                console.log("Service message: " + JSON.stringify(this.loginData));
+                //console.log("Service message: " + JSON.stringify(this.loginData));
                 if (this.loginData.success == "1") {
                     this.loginFailed = false;
                     // alert(this.loginData.success);
@@ -81,7 +94,7 @@ export class LoginFormComponent implements OnInit {
                     //this.loginDialog = true;
                 } else if (this.loginData.success == "0") {
                     this.loginFailed = true;
-                    //alert(this.loginData.success);
+                    
                     this._cookieService.put("login", "0");
                     //this.loginDialog = false;
                 }
@@ -91,8 +104,13 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
+    /* @param signUpError sets visibility of error message div. */
     signUpError = false;
+
+    /* @param signUpErrorText sets the text of error message. */
     signUpErrorText:string;
+
+    /* Function called on submit of sign up form. */
     onSubmitSignUp() {
         console.log(this.loginForm.value);
         this._loginService.userSignUp(this.signUpForm.value)
@@ -110,18 +128,11 @@ export class LoginFormComponent implements OnInit {
             });
     }
 
+    /* Pattern validation for email. */
     validateEmail(c: FormControl) {
         let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 
         return EMAIL_REGEXP.test(c.value) ? null : {
-            validateEmail: {
-                valid: false
-            }
-        };
-    }
-
-    validateCountry(c: FormControl) {
-        return (c.value != "") ? null : {
             validateEmail: {
                 valid: false
             }

@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule} from '@angular/http';
 import { RouterModule } from '@angular/router';
 import {ReactiveFormsModule,FormsModule} from '@angular/forms';
+import {HttpModule, Http, XHRBackend, RequestOptions} from '@angular/http';
+
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -12,6 +13,9 @@ import { UserProfileComponent } from './user_profile/user_profile.component'
 import { HomeComponent} from './home/home.component';
 import { EditProfileComponent } from './edit_profile/edit_profile.component';
 import { SecurePipe } from './home/secure.pipe';
+import { HttpInterceptor } from './http.interceptor';
+import {httpFactory} from "./http.factory";
+import {NotifyService} from './loader.service';
 
 
 @NgModule({
@@ -35,7 +39,17 @@ import { SecurePipe } from './home/secure.pipe';
       
     ])
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    NotifyService,
+    {
+      provide: Http,
+      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, notifyService: NotifyService) => {
+        return new HttpInterceptor(backend, defaultOptions, notifyService);
+      },
+      deps: [ XHRBackend, RequestOptions, NotifyService]
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

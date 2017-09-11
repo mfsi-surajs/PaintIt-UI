@@ -4,6 +4,9 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { User } from '../login/user';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
+
+
 @Injectable()
 export class UserProfileService {
     requestBody;
@@ -13,15 +16,15 @@ export class UserProfileService {
     constructor(private _http: Http) { };
     getUserDetails(id) {
         this.requestBody = { "id": id };
-        return this._http.post("http://localhost:8080/paintingApis/getUserPublicData", this.requestBody, this.options)
+        return this._http.post( environment.apiEndpoint+"getUserPublicData", this.requestBody, this.options)
             .map((response: Response) => response.json());
     }
     getUserImages(id,status) {
         let url;
         if(status){
-            url = "http://localhost:8080/paintingApis/getUserAllImages";
+            url = environment.apiEndpoint+"getUserAllImages";
         }else{
-            url = "http://localhost:8080/paintingApis/getUserPublicImages";
+            url = environment.apiEndpoint+"getUserPublicImages";
         }
         this.requestBody = { "id": id };
         return this._http.post(url, this.requestBody, this.options)
@@ -38,17 +41,12 @@ export class UserProfileService {
             formData.append('file', file, file.name);
             formData.append('username', username);
             let headers = new Headers({"Authorization": "Basic " + btoa("mindfire" + ":" + "mindfire123")});
-            /** No need to include Content-Type in Angular 4 */
-            //headers.append('Content-Type', 'multipart/form-data');
-            //headers.append('Accept', 'application/json');
+            
             let options = new RequestOptions({ headers: headers });
-            return this._http.post(`http://localhost:8080/paintingApis/addUserProfileImage`, formData, options)
+            return this._http.post(environment.apiEndpoint+`addUserProfileImage`, formData, options)
                 .map(res => res.json())
                 .catch(error => Observable.throw(error));
-            /* .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            ) */
+            
         }
     }
 
@@ -61,23 +59,16 @@ export class UserProfileService {
             formData.append('file', file, file.name);
             formData.append('username', username);
             let headers = new Headers({"Authorization": "Basic " + btoa("mindfire" + ":" + "mindfire123")});
-            /** No need to include Content-Type in Angular 4 */
-            //headers.append('Content-Type', 'multipart/form-data');
-            //headers.append('Accept', 'application/json');
             let options = new RequestOptions({ headers: headers });
-            return this._http.post(`http://localhost:8080/paintingApis/addUserPaintingImage`, formData, options)
+            return this._http.post(environment.apiEndpoint+`addUserPaintingImage`, formData, options)
                 .map(res => res.json())
                 .catch(error => Observable.throw(error));
-            /* .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            ) */
+           
         }
     }
 
     changeImagePublicStatus(userImage) {
-        //this.requestBody = { "id": id };
-        return this._http.post("http://localhost:8080/paintingApis/changeImagePublicStatus", userImage, this.options)
+        return this._http.post(environment.apiEndpoint+"changeImagePublicStatus", userImage, this.options)
             .map((response: Response) => response.json());
     }
 }

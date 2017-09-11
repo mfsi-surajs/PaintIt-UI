@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit ,Input} from '@angular/core';
+import { Component, EventEmitter, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EditService } from './edit_profile.service';
 import { CookieService, CookieOptionsArgs } from 'angular2-cookie/core';
@@ -15,9 +15,10 @@ declare var jQuery: any;
 
 export class EditProfileComponent implements OnInit {
 
+
     /* Inputs user data to initialize form values */
     @Input() userData;
-    
+
     editProfDialog = true;
 
     /* Edit user form Model */
@@ -30,7 +31,7 @@ export class EditProfileComponent implements OnInit {
         username: new FormControl('', Validators.required),
         password: new FormControl(''),
         userDetails: new FormControl('', Validators.required)
-    }); 
+    });
 
     /* Validation for email pattern. */
     validateEmail(c: FormControl) {
@@ -51,7 +52,7 @@ export class EditProfileComponent implements OnInit {
     constructor(private editService: EditService, private cookieService: CookieService) { }
 
     ngOnInit() {
-        console.log("userData: "+JSON.stringify(this.userData));
+        console.log("userData: " + JSON.stringify(this.userData));
         // get countries from API to populate on form. 
         this.editService.getCountries()
             .subscribe(loginResponse => {
@@ -59,27 +60,40 @@ export class EditProfileComponent implements OnInit {
                 console.log("Countries: " + JSON.stringify(this.countries));
             });
 
-            this.userId = this.cookieService.get("uid");
-    
+        this.userId = this.cookieService.get("uid");
 
-            
 
-            //jQuery("#country").selectmenu("refresh");
-        
+
+
+        //jQuery("#country").selectmenu("refresh");
+
     }
 
     editFormData; // Holds edit form data. 
     editError = false; // True if request to user edit is successful else False.
     editErrorText: string; // Holds the user edit request error text to be displayed on error.
+
+    /* Function called on submit of edit form. */
     onSubmitEdit() {
+
+        /* this.editFormData holds user data to be send through http. */
         this.editFormData = this.editProfForm.value;
-        this.editFormData.id = this.userId; // adding user id form data.
-        console.log(this.editFormData);
+
+        this.editFormData.id = this.userId; // adding user id to form data.
+        //console.log(this.editFormData);
+
+        /* Http call to edit user data. */
         this.editService.userEdit(this.editFormData)
             .subscribe(loginResponse => {
                 //this.loginData = loginResponse; 
                 //console.log("Service message: " + JSON.stringify(this.loginData)); 
+                /* 
+                * loginResponse.success indicates success status of user data edit request.
+                * "1" -> Edit successful.
+                * "0" -> Edit unsuccessful.
+                */
                 if (loginResponse.success == "1") {
+                    /* Hide the user edit popup dialog. */
                     jQuery("#loginDialog").modal('hide');
                     this.editError = false;
                     window.location.reload();

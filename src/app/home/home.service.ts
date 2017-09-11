@@ -5,6 +5,8 @@ import {User} from '../login/user';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
+import { environment } from '../../environments/environment';
+declare var jQuery: any;
 
 @Injectable()
 export class LoginService{
@@ -16,7 +18,7 @@ export class LoginService{
     options       = new RequestOptions({ headers: this.headers }); // Create a request option
     constructor(private _http:Http){};
     getAllUsers(){
-        return this._http.get("http://localhost:8080/paintingApis/all",this.options)
+        return this._http.get(environment.apiEndpoint+"all",this.options)
             .map((response:Response) => response.json());
     }
 
