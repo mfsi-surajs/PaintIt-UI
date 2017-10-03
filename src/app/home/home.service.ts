@@ -24,6 +24,13 @@ export class LoginService{
 
 
 
+    /**
+     * 
+     * 
+     * @param {string} url 
+     * @returns {Observable<any>} 
+     * @memberof LoginService
+     */
     get(url: string): Observable<any>{
         return new Observable((observer: Subscriber<any> ) => {
             let objectUrl: string = null;

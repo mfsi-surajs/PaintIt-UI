@@ -4,6 +4,8 @@ import { CookieService } from 'angular2-cookie/core';
 import { LoginService } from './home.service';
 import { environment } from '../../environments/environment';
 
+declare const gapi: any;
+
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -62,7 +64,14 @@ export class HomeComponent implements OnInit {
     this._cookieService.put("login", "0");
     this._cookieService.put("username", "");
     this._cookieService.put("uid", "");
+
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+
     window.location.reload();
+    
   }
 
   /* Funtion to be called on click of user image. */

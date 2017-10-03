@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:8080/paintingApis/'
+  apiEndpoint: 'http://localhost:8080/paintingApis/',
+  UserAuthorization: "Basic " + btoa("mindfire" + ":" + "mindfire123")
 };

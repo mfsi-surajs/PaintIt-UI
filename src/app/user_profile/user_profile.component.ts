@@ -5,6 +5,14 @@ import { LoginService } from '../home/home.service';
 
 
 
+/**
+ * Class for user profile details on user profile page.
+ * Also includes the painting of the user.
+ * 
+ * @export
+ * @class UserProfileComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'user-profile',
     templateUrl: './user_profile.component.html',
@@ -59,6 +67,11 @@ export class UserProfileComponent implements OnInit {
 
     constructor(private userProfileService: UserProfileService, private cookieService: CookieService) { }
 
+    /**
+     * 
+     * 
+     * @memberof UserProfileComponent
+     */
     ngOnInit() {
 
         this.loginStatus = this.cookieService.get("login");
@@ -98,7 +111,13 @@ export class UserProfileComponent implements OnInit {
         });
     }
 
-    /* Function called on change of file selected to upload profile image. */
+    
+    /**
+     * Function called on change of file selected to upload profile image.
+     * 
+     * @param {any} event 
+     * @memberof UserProfileComponent
+     */
     onSelectProfImage(event) {
         let fileList: FileList = event.target.files;
         console.log("fileList: " + fileList);
@@ -114,11 +133,17 @@ export class UserProfileComponent implements OnInit {
 
     }
 
-    /* Function called on change of file selected to upload user painting. */
+    
+    /**
+     * Function called on change of file selected to upload user painting.
+     * 
+     * @param {any} event 
+     * @memberof UserProfileComponent
+     */
     onSelectPaintingImage(event) {
         let fileList: FileList = event.target.files;
         console.log("fileList: " + fileList);
-        this.userId = this.cookieService.get("username");
+        this.userId = this.cookieService.get("uid");
         this.userProfileService.uploadPainting(this.userId, fileList).subscribe(userData => {
             //this.userImages = userData.userImages;
             console.log("user Data: " + JSON.stringify(userData));
@@ -130,7 +155,14 @@ export class UserProfileComponent implements OnInit {
 
     }
 
-    /* Function called on change of checkbox to make Image status public or private. */
+    
+    /**
+     * Function called on change of checkbox to make Image status public or private.
+     * 
+     * @param {any} event 
+     * @param {any} userImage 
+     * @memberof UserProfileComponent
+     */
     onPublicStatusChange(event, userImage) {
         console.log("checkbox change event userImage: " + JSON.stringify(userImage));
 
@@ -156,9 +188,13 @@ export class UserProfileComponent implements OnInit {
 
     }
 
-    /* Logout on click of logout button. 
-    *  It clears the cookie data and changes the login status to "0" 
-    */
+    
+    /**
+     * Logout on click of logout button. 
+     * It clears the cookie data and changes the login status to "0"
+     * 
+     * @memberof UserProfileComponent
+     */
     onClickLogOut() {
         this.cookieService.put("login", "0");
         this.cookieService.put("username", "");

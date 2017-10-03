@@ -11,12 +11,20 @@
   }
 
   .head-sign-in-div {
-    position: relative;
-    }
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 67px;
+  }
+  
+  .head-sign-in-div div{
+    position: absolute;
+    right: 0;
+  }
+  
   .head-sign-in-div a {
     color: #000;
-    float: right;
-    margin-top: 60px;
+    bottom: 0;
     padding: 10px;
   }
 

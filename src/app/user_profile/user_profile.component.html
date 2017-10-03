@@ -40,8 +40,6 @@
 
 <div class="container-fluid">
 
-
-
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 header-text center-vertically">
             <!-- <h1><a href="#"><img src="http://localhost:8080/paintingApis/getProfileImage?path={{userData.profileImagePath}}" alt="Image" class="img-responsive home-user-img-box"></a></h1> -->
@@ -71,11 +69,12 @@
                     <span>{{userData.city}},{{userData.country}}</span>
 
                 </div>
-                <div class="user-name-city-div col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <a class="btn" data-toggle="modal" data-target="#editProfileDialog">
-                    <span class="btn btn-default btn-file" [hidden]="!isMyProfile">
+                <div class="edit-profile-div col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <a  data-toggle="modal" data-target="#editProfileDialog">
+                        <span class="btn btn-default btn-file" [hidden]="!isMyProfile">
                                 Edit Profile
-                        </span></a>
+                        </span>
+                    </a>
                 </div>
             </div>
 

@@ -11,14 +11,29 @@ import { environment } from '../../environments/environment';
 export class UserProfileService {
     requestBody;
     headers = new Headers({ 'Content-Type': 'application/json' ,
-    "Authorization": "Basic " + btoa("mindfire" + ":" + "mindfire123")}); // ... Set content type to JSON
+    "Authorization": "Basic " + btoa("mindfire" + ":" + "mindfire123")});
     options = new RequestOptions({ headers: this.headers }); // Create a request option
     constructor(private _http: Http) { };
+    /**
+     * Requests all the user details of seleted user.
+     * 
+     * @param {any} id 
+     * @returns 
+     * @memberof UserProfileService
+     */
     getUserDetails(id) {
         this.requestBody = { "id": id };
         return this._http.post( environment.apiEndpoint+"getUserPublicData", this.requestBody, this.options)
             .map((response: Response) => response.json());
     }
+    /**
+     * Requests all the user paintings of seleted user.
+     * 
+     * @param {any} id 
+     * @param {any} status 
+     * @returns 
+     * @memberof UserProfileService
+     */
     getUserImages(id,status) {
         let url;
         if(status){
@@ -32,14 +47,22 @@ export class UserProfileService {
     }
 
 
-    uploadProfilePicture(username: string, files: FileList) {
+    /**
+     * Uploads the seleted profile image.
+     * 
+     * @param {string} userID 
+     * @param {FileList} files 
+     * @returns 
+     * @memberof UserProfileService
+     */
+    uploadProfilePicture(userID: string, files: FileList) {
 
         let fileList: FileList = files;
         if (fileList.length > 0) {
             let file: File = fileList[0];
             let formData: FormData = new FormData();
             formData.append('file', file, file.name);
-            formData.append('username', username);
+            formData.append('userID', userID);
             let headers = new Headers({"Authorization": "Basic " + btoa("mindfire" + ":" + "mindfire123")});
             
             let options = new RequestOptions({ headers: headers });
@@ -50,14 +73,22 @@ export class UserProfileService {
         }
     }
 
-    uploadPainting(username: string, files: FileList) {
+    /**
+     * Uploads the selected painting.
+     * 
+     * @param {string} userID 
+     * @param {FileList} files 
+     * @returns 
+     * @memberof UserProfileService
+     */
+    uploadPainting(userID: string, files: FileList) {
 
         let fileList: FileList = files;
         if (fileList.length > 0) {
             let file: File = fileList[0];
             let formData: FormData = new FormData();
             formData.append('file', file, file.name);
-            formData.append('username', username);
+            formData.append('userID', userID);
             let headers = new Headers({"Authorization": "Basic " + btoa("mindfire" + ":" + "mindfire123")});
             let options = new RequestOptions({ headers: headers });
             return this._http.post(environment.apiEndpoint+`addUserPaintingImage`, formData, options)
@@ -67,6 +98,13 @@ export class UserProfileService {
         }
     }
 
+    /**
+     * This sends request to change the status of user painting.
+     * 
+     * @param {any} userImage 
+     * @returns 
+     * @memberof UserProfileService
+     */
     changeImagePublicStatus(userImage) {
         return this._http.post(environment.apiEndpoint+"changeImagePublicStatus", userImage, this.options)
             .map((response: Response) => response.json());

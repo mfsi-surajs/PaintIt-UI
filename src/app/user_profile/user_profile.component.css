@@ -11,12 +11,20 @@
 }
 
 .head-sign-in-div {
-  position: relative;
-  }
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 67px;
+}
+
+.head-sign-in-div div{
+  position: absolute;
+  right: 0;
+}
+
 .head-sign-in-div a {
   color: #000;
-  float: right;
-  margin-top: 60px;
+  bottom: 0;
   padding: 10px;
 }
 
@@ -32,6 +40,11 @@
   max-width: 220px;    
 }
 
+.edit-profile-div a {
+
+  float: right;
+
+}
 .user-name-city-div h1{
   margin: 20px 0px 0px 0px;
   padding: 0;
@@ -43,7 +56,7 @@
 }
 
 .user-about-div p{
-  margin: 20px 10px 10px 0px;
+  margin: 20px 0px 10px 0px;
 }
 
 .profile-painting-head-div h2 span {

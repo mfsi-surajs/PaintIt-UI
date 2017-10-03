@@ -13,7 +13,7 @@
             <div class="form-group-sm row">
                 <div class="col-xs-12">
                     <label for="name">Username</label>
-                    <input type="text" class="form-control" id="name" formControlName="name">
+                    <input type="text" class="form-control" id="name" formControlName="name"  >
                     <div *ngIf="loginForm.controls['name'].hasError('required') && (loginForm.controls['name'].dirty || loginForm.controls['name'].touched)" class="alert alert-danger small-alert">
                         Please enter a username.
                     </div>
@@ -105,7 +105,13 @@
             <div class="form-group-sm row">
                 <div class="col-xs-12">
                     <label for="name">Username</label>
-                    <input type="text" class="form-control" id="username" formControlName="username">
+                    <input type="text" class="form-control" id="username" formControlName="username" (keyup)="searchUsername.next($event.target.value)">
+                    <div *ngIf="( usernameSearchData.success == 1 || usernameSearchData.success == '1') && !signUpForm.controls['username'].hasError('required') && (signUpForm.controls['username'].dirty || signUpForm.controls['username'].touched)" class="alert alert-success small-alert">    
+                        {{usernameSearchData.message}}
+                    </div>
+                    <div *ngIf="( usernameSearchData.success == 0 || usernameSearchData.success == '0') && !signUpForm.controls['username'].hasError('required') && (signUpForm.controls['username'].dirty || signUpForm.controls['username'].touched)" class="alert alert-danger small-alert">    
+                        {{usernameSearchData.message}}
+                    </div>
                     <div *ngIf="signUpForm.controls['username'].hasError('required') && (signUpForm.controls['username'].dirty || signUpForm.controls['username'].touched)" class="alert alert-danger small-alert">
                         Please enter a username.
                     </div>
@@ -118,6 +124,9 @@
                     <div *ngIf="signUpForm.controls['password'].hasError('required') && (signUpForm.controls['password'].dirty || signUpForm.controls['password'].touched)" class="alert alert-danger small-alert">
                         Please enter Password.
                     </div>
+                    <div *ngIf="signUpForm.controls['password'].hasError('increaseStrength') && (signUpForm.controls['password'].dirty || signUpForm.controls['password'].touched)" class="alert alert-danger small-alert">
+                        Password should be minimum 6 character long with 1 uppercase, 1 lowercase and 1 digit character.
+                    </div>
                 </div>
             </div>
 
@@ -125,6 +134,8 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default sign-up-btn" (click)="onClickLogIn()">Login</button>
+            <button type="button" (click)="googleSignin()" class="btn btn-default" > GoogleSignin</button>
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-default">Sign up</button>
         </div>

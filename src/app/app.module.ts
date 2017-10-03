@@ -44,9 +44,7 @@ import {NotifyService} from './loader.service';
     NotifyService,
     {
       provide: Http,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, notifyService: NotifyService) => {
-        return new HttpInterceptor(backend, defaultOptions, notifyService);
-      },
+      useFactory: httpFactory,
       deps: [ XHRBackend, RequestOptions, NotifyService]
   }
 ],
